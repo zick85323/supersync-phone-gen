@@ -1,26 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Header from "./components/header";
+import SubTitle from "./components/subTitle";
+import NumberInput from "./components/numberInput";
+import Sorter from "./components/sorter";
+import GeneratedNumbers from "./components/generatedNumbers";
+import ExportButton from "./components/exportButton";
+import Statistics from "./components/statistics";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <div>
+          <Header/>
+          <div >
+            <SubTitle/>
+            <div className="App-body">
+              <NumberInput/>
+              <Sorter/>
+              <GeneratedNumbers/>
+              <ExportButton/>
+              <Statistics/>
+            </div>
+          </div>
+        </div>
     );
   }
 }

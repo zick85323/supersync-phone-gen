@@ -19,7 +19,8 @@ class App extends Component {
     phoneNumbers: [],
     min: null,
     max: null,
-    total: 0
+    total: 0,
+    sorter: 'asc'
   };
 
   generateRandomPhoneNumber = event => {
@@ -37,7 +38,10 @@ class App extends Component {
     }
     return this.setState({
       phoneNumbers
-    }, () => this.setStatistics());
+    }, async () => {
+      await this.setStatistics();
+      this.sortPhoneNumbers()
+    });
   };
 
   onGetUserInput = async event => {
@@ -78,6 +82,28 @@ class App extends Component {
     }
   };
 
+  sortPhoneNumbers = () => {
+    const { sorter, phoneNumbers } = this.state;
+    if (!phoneNumbers.length > 0) return;
+    if(sorter === 'asc'){
+      this.setState({
+        phoneNumbers : phoneNumbers.sort((a,b) => 0 - (a > b ? -1 : 1))
+      });
+    } else {
+      this.setState({
+        phoneNumbers : phoneNumbers.sort((a,b) => 0 - (a > b ? 1 : -1))
+      })
+    }
+  };
+
+  onSortChange = event => {
+    event.preventDefault();
+    const sorter = event.target.value;
+    this.setState({
+      sorter
+    }, () => this.sortPhoneNumbers());
+  };
+
   render() {
     const { error, message, phoneNumbers, min, max, total } = this.state;
     return (
@@ -94,7 +120,10 @@ class App extends Component {
                   onClick={this.generateRandomPhoneNumber}
                   onChange={this.onGetUserInput}
               />
-              <Sorter/>
+              <Sorter
+                  phoneNumbers={phoneNumbers}
+                  onChange={this.onSortChange}
+              />
               <GeneratedNumbers
                   phoneNumbers={phoneNumbers}
               />

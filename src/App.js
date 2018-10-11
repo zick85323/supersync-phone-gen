@@ -15,7 +15,10 @@ class App extends Component {
     error: false,
     message: "",
     limit: 1,
-    phoneNumbers: []
+    phoneNumbers: [],
+    min: null,
+    max: null,
+    total: 0
   };
 
   generateRandomPhoneNumber = event => {
@@ -33,7 +36,7 @@ class App extends Component {
     }
     return this.setState({
       phoneNumbers
-    });
+    }, () => this.setStatistics());
   };
 
   onGetUserInput = async event => {
@@ -53,8 +56,22 @@ class App extends Component {
     }
   };
 
+  setStatistics = () => {
+    const { phoneNumbers } = this.state;
+    if (phoneNumbers.length > 0) {
+      const min = Math.min(...phoneNumbers);
+      const max = Math.max(...phoneNumbers);
+      const total = phoneNumbers.length;
+      this.setState({
+        min,
+        max,
+        total
+      })
+    }
+  };
+
   render() {
-    const { error, message, phoneNumbers } = this.state;
+    const { error, message, phoneNumbers, min, max, total } = this.state;
     return (
         <div>
           <Header/>
@@ -74,7 +91,12 @@ class App extends Component {
                   phoneNumbers={phoneNumbers}
               />
               <ExportButton/>
-              <Statistics/>
+              <Statistics
+                  phoneNumbers={phoneNumbers}
+                  min={min}
+                  max={max}
+                  total={total}
+              />
             </div>
           </div>
         </div>

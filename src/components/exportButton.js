@@ -1,9 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ExportButton = () => (
+const ExportButton = ({ phoneNumbers, onClick }) => (
     <div>
-      <button>Export Numbers</button>
+      {
+        phoneNumbers.length > 0 &&
+        <button
+            onClick={onClick}>
+          Export Numbers
+        </button>
+      }
     </div>
 );
+
+ExportButton.propTypes = {
+  phoneNumbers: PropTypes.array,
+  onClick: PropTypes.func,
+};
 
 export default ExportButton;

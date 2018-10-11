@@ -21,4 +21,14 @@ describe('Test Statistics component', () => {
   test('should render once', () => {
     expect(shallowComponent.length).toEqual(1)
   });
+
+ test('should render text', () => {
+   shallowComponent.setProps({
+     phoneNumbers : ['234235', '233244']
+   });
+   expect(shallowComponent.find('h3').text()).toContain('Stats');
+   expect(shallowComponent.find('strong').at(0).text()).toContain('Min Phone number');
+   expect(shallowComponent.find('strong').at(1).text()).toContain('Max Phone number');
+   expect(shallowComponent.find('strong').at(2).text()).toContain('Total number of Phone');
+ });
 });

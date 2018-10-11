@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = props => (
+const Header = () => (
     <header className="App-header">
       <h1>Phone Number Generator</h1>
     </header>

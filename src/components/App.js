@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import './App.css';
-import Header from "./components/header";
-import SubTitle from "./components/subTitle";
-import NumberInput from "./components/numberInput";
-import Sorter from "./components/sorter";
-import GeneratedNumbers from "./components/generatedNumbers";
-import ExportButton from "./components/exportButton";
-import Statistics from "./components/statistics";
-import Error from "./components/error";
+import '../App.css';
+import Header from "./header";
+import SubTitle from "./subTitle";
+import NumberInput from "./numberInput";
+import Sorter from "./sorter";
+import GeneratedNumbers from "./generatedNumbers";
+import ExportButton from "./exportButton";
+import Statistics from "./statistics";
+import Error from "./error";
 import saveAs from 'file-saver';
 
 class App extends Component {

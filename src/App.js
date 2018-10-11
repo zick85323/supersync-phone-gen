@@ -8,6 +8,7 @@ import GeneratedNumbers from "./components/generatedNumbers";
 import ExportButton from "./components/exportButton";
 import Statistics from "./components/statistics";
 import Error from "./components/error";
+import saveAs from 'file-saver';
 
 class App extends Component {
 
@@ -70,6 +71,13 @@ class App extends Component {
     }
   };
 
+  exportPhoneNumbers = () => {
+    const { phoneNumbers } = this.state;
+    if (phoneNumbers.length > 0) {
+      saveAs(new Blob(phoneNumbers, { type: "text/csv;charset=utf-8" }), 'phoneNumbers.csv')
+    }
+  };
+
   render() {
     const { error, message, phoneNumbers, min, max, total } = this.state;
     return (
@@ -90,7 +98,10 @@ class App extends Component {
               <GeneratedNumbers
                   phoneNumbers={phoneNumbers}
               />
-              <ExportButton/>
+              <ExportButton
+                  phoneNumbers={phoneNumbers}
+                  onClick={this.exportPhoneNumbers}
+              />
               <Statistics
                   phoneNumbers={phoneNumbers}
                   min={min}

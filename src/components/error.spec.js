@@ -21,4 +21,12 @@ describe('Test Error component', () => {
   test('should render once', () => {
     expect(shallowComponent.length).toEqual(1)
   });
+
+  test('should render message', () => {
+    shallowComponent.setProps({
+      error: true,
+      message: 'message'
+    });
+    expect(shallowComponent.find('div').at(1).text()).toContain('message')
+  });
 });

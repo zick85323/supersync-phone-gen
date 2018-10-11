@@ -19,4 +19,11 @@ describe('Test ExportButton component', () => {
   test('should render once', () => {
     expect(shallowComponent.length).toEqual(1)
   });
+
+  test('should render text', () => {
+    shallowComponent.setProps({
+      phoneNumbers: ['3242234', '324344']
+    });
+    expect(shallowComponent.find('button').text()).toContain('Export')
+  });
 });

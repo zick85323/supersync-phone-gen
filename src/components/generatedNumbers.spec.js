@@ -20,4 +20,22 @@ describe('Test GeneratedNumbers component', () => {
   test('should render once', () => {
     expect(shallowComponent.length).toEqual(1)
   });
+
+  test('should text when there is no phone number', () => {
+    expect(shallowComponent.find('div').find('span').text()).toContain('No phone numbers generated yet')
+  });
+
+  test('should show text when there are phone numbers', () => {
+    shallowComponent.setProps({
+      phoneNumbers : ['234235', '233244']
+    });
+    expect(shallowComponent.find('div').find('h3').text()).toContain('Generated Numbers')
+  });
+
+  test('should render numbers', () => {
+    shallowComponent.setProps({
+      phoneNumbers : ['234235', '233244']
+    });
+    expect(shallowComponent.find('div').find('ul').text()).toContain('234235')
+  });
 });

@@ -92,4 +92,29 @@ describe('App Test', () => {
     expect(state.min).toBeDefined();
     expect(state.max).toBeDefined();
   });
+
+  test('should test sortPhoneNumbers', () => {
+    shallowComponent.setState({ sorter: 'desc', phoneNumbers: ['09876098765', '09876543'] });
+    instance.sortPhoneNumbers();
+    const state = shallowComponent.state();
+    expect(state.phoneNumbers.length).toBeGreaterThan(1);
+    expect(state.sorter).toBe('desc');
+  });
+
+  test('should call sortPhoneNumbers', () => {
+    shallowComponent.setState({ phoneNumbers: ['09876098765', '09876543']});
+    const event = {
+      preventDefault: () => {},
+      target: {
+        value: 'desc'
+      }
+    };
+    let spied;
+    spied = jest.spyOn(instance, 'onSortChange');
+    instance.onSortChange(event);
+    const state = shallowComponent.state();
+    expect(state.sorter).toBe('desc');
+    expect(spied).toHaveBeenCalled();
+    spied.mockRestore();
+  });
 });

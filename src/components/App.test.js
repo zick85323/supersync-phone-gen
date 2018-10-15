@@ -33,7 +33,7 @@ describe('App Test', () => {
     const state = shallowComponent.state();
     expect(state.limit).toEqual(20000);
     expect(state.error).toBe(true);
-    expect(state.message).toBe("The number entered exceeds the accepted limit");
+    expect(state.message).toBe("The number entered exceeds/below the accepted limit");
   });
 
   test('should generate phone numbers', () => {

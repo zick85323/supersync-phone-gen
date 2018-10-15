@@ -26,9 +26,9 @@ class App extends Component {
   generateRandomPhoneNumber = event => {
     event.preventDefault();
     const { limit } = this.state;
-    if (limit > 10000) return this.setState({
+    if (limit <= 0 || limit > 10000) return this.setState({
       error: true,
-      message: "The number entered exceeds the accepted limit"
+      message: "The number entered exceeds/below the accepted limit"
     });
     let phoneNumbers = [];
     let phoneNumber = 0;

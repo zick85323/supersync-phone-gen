@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../App.css';
 import Header from "./header";
 import SubTitle from "./subTitle";
@@ -11,7 +11,6 @@ import Error from "./error";
 import saveAs from 'file-saver';
 
 class App extends Component {
-
   state = {
     error: false,
     message: "",
@@ -20,12 +19,14 @@ class App extends Component {
     min: null,
     max: null,
     total: 0,
-    sorter: 'asc'
+    sorter: 'asc',
+    countryCode: '',
+    startingDigit: '1' // Default starting digit
   };
 
   generateRandomPhoneNumber = event => {
     event.preventDefault();
-    const { limit } = this.state;
+    const { limit, countryCode, startingDigit } = this.state;
     if (limit <= 0 || limit > 10000) return this.setState({
       error: true,
       message: "The number entered exceeds/below the accepted limit"
@@ -33,7 +34,8 @@ class App extends Component {
     let phoneNumbers = [];
     let phoneNumber = 0;
     while (phoneNumber < limit) {
-      phoneNumbers.push('0' + Math.floor(Math.random() * 900000000 + 100000000));
+      let generatedNumber = startingDigit + Math.floor(Math.random() * 900000000 + 100000000).toString().slice(1); // Ensure 10-digit number starting with the specified digit
+      phoneNumbers.push(countryCode + generatedNumber);
       phoneNumber++;
     }
     return this.setState({
@@ -54,8 +56,20 @@ class App extends Component {
         })
       }
     } catch (e) {
-      console.log('an error has occured', e.message)
+      console.log('an error has occurred', e.message)
     }
+  };
+
+  onCountryCodeChange = async event => {
+    event.preventDefault();
+    const countryCode = event.target.value;
+    this.setState({ countryCode });
+  };
+
+  onStartingDigitChange = async event => {
+    event.preventDefault();
+    const startingDigit = event.target.value;
+    this.setState({ startingDigit });
   };
 
   setStatistics = () => {
@@ -116,6 +130,8 @@ class App extends Component {
               <NumberInput
                   onClick={this.generateRandomPhoneNumber}
                   onChange={this.onGetUserInput}
+                  onCountryCodeChange={this.onCountryCodeChange}
+                  onStartingDigitChange={this.onStartingDigitChange}
               />
               <Sorter
                   phoneNumbers={phoneNumbers}

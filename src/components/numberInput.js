@@ -14,8 +14,20 @@ const styles = {
   }
 };
 
-const NumberInput = ({ onClick, onChange }) => (
+const NumberInput = ({ onClick, onChange, onCountryCodeChange, onStartingDigitChange }) => (
     <div style={styles.container}>
+      <input
+          type="text"
+          placeholder="Enter country code"
+          onChange={onCountryCodeChange}
+          style={styles.input}
+      />
+      <input
+          type="number"
+          placeholder="Enter starting digit"
+          onChange={onStartingDigitChange}
+          style={styles.input}
+      />
       <input
           type="number"
           placeholder="Enter number only"
@@ -33,6 +45,8 @@ const NumberInput = ({ onClick, onChange }) => (
 NumberInput.propTypes = {
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onCountryCodeChange: PropTypes.func.isRequired,
+  onStartingDigitChange: PropTypes.func.isRequired,
 };
 
 export default NumberInput;
